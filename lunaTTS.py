@@ -8,10 +8,10 @@ import zipfile
 
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "https://luna-tts.vercel.app"}})
 
 # Set the path to your service account file
-service_account_file = "lunatts-1310b7e6258a.json"
+service_account_file = "lunatts-89b83769231f.json"
 # Set the environment variable
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_file
 
