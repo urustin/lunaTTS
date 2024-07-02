@@ -1,5 +1,35 @@
-./venv
-./google-cloud-sdk
-./lunatts-1310b7e6258a.json
-./lunaTTS.py
-requirements.txt
+# Virtual Environment
+venv/
+
+# Google Cloud SDK
+google-cloud-sdk/
+
+# Sensitive Information
+lunatts-1310b7e6258a.json
+
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables
+.env
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# IDE specific files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+
+# Do not ignore these files
+!requirements.txt
+!lunaTTS.py
