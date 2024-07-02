@@ -1,0 +1,5 @@
+./venv
+./google-cloud-sdk
+./lunatts-1310b7e6258a.json
+./lunaTTS.py
+requirements.txt

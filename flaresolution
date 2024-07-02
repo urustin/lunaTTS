@@ -1,0 +1,113 @@
+#flaresolution
+
+
+# ec2.flaresolution.com를 위한 서버 블록
+server {
+    listen [::]:443 ssl;
+    listen 443 ssl;
+    server_name ec2.flaresolution.com; # managed by Certbot
+    # SSL 설정
+    ssl_certificate /etc/letsencrypt/live/ec2.flaresolution.com/fullchain.pem; 
+    ssl_certificate_key /etc/letsencrypt/live/ec2.flaresolution.com/privkey.pem;
+
+    location / {
+        return 200 "https flare";
+    }
+
+    location /api/todos {
+
+	proxy_pass http://localhost:3000/api/todos;
+	proxy_http_version 1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection 'upgrade';
+	proxy_set_header Host $host;
+	proxy_cache_bypass $http_upgrade;
+    }
+    #horang
+    location /check-order {
+	proxy_pass http://localhost:5007;
+	proxy_http_version 1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection 'upgrade';
+	proxy_set_header Host $host;
+	proxy_cache_bypass $http_upgrade;
+    }
+	#index2
+    location /count-box {
+	proxy_pass http://localhost:5008;
+	proxy_http_version 1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection 'upgrade';
+	proxy_set_header Host $host;
+	proxy_cache_bypass $http_upgrade;
+    }
+
+
+	#index3
+    location /get-all-data {
+	proxy_pass http://localhost:5008;
+	proxy_http_version 1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection 'upgrade';
+	proxy_set_header Host $host;
+	proxy_cache_bypass $http_upgrade;
+    }
+	#index5(submit order)
+    location /submit-order{
+	proxy_pass http://localhost:5008;
+	proxy_http_version 1.1;
+	proxy_set_header Upgrade $http_upgrade;
+	proxy_set_header Connection 'upgrade';
+	proxy_set_header Host $host;
+	proxy_cache_bypass $http_upgrade;
+    }
+	#typeOrder
+    location /image-text{
+	proxy_pass http://localhost:5008;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+    
+        #durupr
+    location /submit-order-durup{
+        proxy_pass http://localhost:5008;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+        #ash
+    location /send_email{
+        proxy_pass http://localhost:5009;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+        #ash 
+    location /subscribe{
+        proxy_pass http://localhost:5009;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+    #lunaTTS
+    location /synthesize{
+        proxy_pass http://localhost:5101;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+
+
+}
