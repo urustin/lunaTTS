@@ -9,8 +9,8 @@ import threading
 from collections import defaultdict
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "https://luna-tts.vercel.app"}})
-# CORS(app)
+# CORS(app, resources={r"/*": {"origins": "https://luna-tts.vercel.app"}})
+CORS(app)
 
 # 메모리 내 저장소
 jobs = {}
@@ -21,12 +21,17 @@ service_account_file = "lunatts-89b83769231f.json"
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = service_account_file
 client = texttospeech.TextToSpeechClient()
 
-MAX_SENTENCES_PER_REQUEST = 3  # 한 번에 처리할 최대 문장 수
+MAX_SENTENCES_PER_REQUEST = 1  # 한 번에 처리할 최대 문장 수
 
 @app.route('/start_synthesis', methods=['POST'])
 def start_synthesis():
     try:
+
         text = request.form.get('text', 'No text provided')
+        voice = request.form.get('voice', 'en-US-Studio-O')
+        rate = float(request.form.get('rate', 1.0))
+
+
         sentences = text.split('\n')
         job_id = str(uuid.uuid4())
         
@@ -34,7 +39,9 @@ def start_synthesis():
             'total': len(sentences),
             'processed': 0,
             'queue': sentences,
-            'results': []
+            'results': [],
+            'voice': voice,
+            'rate': rate
         }
         
         return jsonify({"job_id": job_id, "total_sentences": len(sentences)})
@@ -59,11 +66,13 @@ def process_batch():
                     input_text = texttospeech.SynthesisInput(text=sentence)
                     voice = texttospeech.VoiceSelectionParams(
                         language_code="en-US",
-                        name="en-US-Studio-O",
+                        name=job['voice'],
+                        # en-US-Studio-Q
                     )
                     audio_config = texttospeech.AudioConfig(
                         audio_encoding=texttospeech.AudioEncoding.MP3,
-                        speaking_rate=1
+                        speaking_rate=job['rate']
+                        # can be modulate
                     )
                     
                     response = client.synthesize_speech(

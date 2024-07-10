@@ -11,16 +11,24 @@ document.addEventListener('DOMContentLoaded', function() {
     const progressText = document.getElementById('progressText');
     const statusMessage = document.getElementById('statusMessage');
 
+
+    // speaking Rate slider
+    speakingRate.addEventListener('input', function() {
+        rateValue.textContent = this.value;
+    });
+
+
+
     synthesizeButton.addEventListener('click', () => {
         const text = textInput.value;
         if (text.trim() === '') {
             alert('Please enter some text before synthesizing.');
             return;
         }
-        synthesizeSpeech(text);
+        synthesizeSpeech(text, voiceModel.value, parseFloat(speakingRate.value));
     });
 
-    async function synthesizeSpeech(text) {
+    async function synthesizeSpeech(text, voice, rate) {
         try {
             // UI 초기화
             progressBar.style.width = '0%';
@@ -32,6 +40,8 @@ document.addEventListener('DOMContentLoaded', function() {
             // 1. 작업 시작
             const formData = new FormData();
             formData.append('text', text);
+            formData.append('voice', voice);
+            formData.append('rate', rate);
 
             const startResponse = await fetch(currentURL+'/start_synthesis', {
                 method: 'POST',

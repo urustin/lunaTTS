@@ -21,6 +21,13 @@
             <div class="container">
                 <h1>Text-to-Speech Synthesizer</h1>
                 <textarea id="textInput" rows="10" placeholder="Enter your text here..."></textarea>
+                <select id="voiceModel">
+                    <option value="en-US-Studio-O">Female Voice</option>
+                    <option value="en-US-Studio-Q">Male Voice</option>
+                </select>
+                <span>Speaking Rate</span>
+                <input type="range" id="speakingRate" min="0.25" max="4" step="0.25" value="1">
+                <span id="rateValue">1</span>
                 <button id="synthesizeButton">Synthesize Speech</button>
                 <div class="progress-container">
                     <div id="progressBar" class="progress-bar"></div>
