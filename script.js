@@ -2,7 +2,7 @@
 
 const localURL = "http://localhost:5101"
 const globalURL = "https://ec2.flaresolution.com"
-const currentURL = localURL;
+const currentURL = globalURL;
 
 document.addEventListener('DOMContentLoaded', function() {
     const textInput = document.getElementById('textInput');
