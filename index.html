@@ -18,11 +18,16 @@
     </header>
     <main>
         <section id="textbox-section">
-            <textarea id="large-textbox" rows="30" cols="60"></textarea>
-            <button id="submit-button">Synthesize Speech</button>
-            <a id="download-link" class="download-button" style="display:none;">
-                <i class="fas fa-download"></i> Download MP3
-            </a>
+            <div class="container">
+                <h1>Text-to-Speech Synthesizer</h1>
+                <textarea id="textInput" rows="10" placeholder="Enter your text here..."></textarea>
+                <button id="synthesizeButton">Synthesize Speech</button>
+                <div class="progress-container">
+                    <div id="progressBar" class="progress-bar"></div>
+                    <div id="progressText" class="progress-text">0%</div>
+                </div>
+                <p id="statusMessage"></p>
+            </div>
         </section>
     </main>
     <footer>
